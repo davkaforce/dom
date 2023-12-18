@@ -21,8 +21,22 @@ document.getElementById(
   "jsbox"
 ).innerHTML = `<div class="yellowbox"><div id="add"></div></div>`;
 
-document.getElementById("add").innerHTML = `<div class="minibox"></div>`;
+document.getElementById(
+  "add"
+).innerHTML = `<div id="yellowboxid" class="minibox"></div>`;
 
 function addNew() {
-  document.getElementById("add").innerHTML += `<div class="minibox"></div>`;
+  document.getElementById(
+    "add"
+  ).innerHTML += `<div id="yellowboxid" class="minibox"></div>`;
+  var myDiv = document.getElementById("add");
+  myDiv.style.backgroundColor = "blue";
+}
+
+function changeColor() {
+  document.getElementById(
+    "add"
+  ).innerHTML += `<div id="yellowboxid" class="minibox2"></div>`;
+  var myDiv = document.getElementById("add");
+  myDiv.style.backgroundColor = "yellow";
 }
