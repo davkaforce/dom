@@ -7,11 +7,14 @@
 
 .container {
   padding-top: 100px;
-  max-width: 800px;
+  padding-bottom: 500px;
   margin: auto;
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
+  background-image: url(./mywallpaper2.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .display {
@@ -20,7 +23,7 @@
   border: 1px black solid;
   width: 400px;
   background-color: #464647;
-  font-size: 25px;
+  font-size: 30px;
 }
 
 .display p {
@@ -39,34 +42,55 @@
   height: 75px;
   background-color: bisque;
   border: 1px black solid;
+  font-size: 20px;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.input:active {
+  background-color: black;
+  color: white;
+  animation: pulse 0.4s infinite alternate;
 }
 
 #input3 {
   background-color: #ff9f0a;
 }
+
+#input3:active {
+  background-color: blue;
+}
 #input7 {
   background-color: #ff9f0a;
 }
+#input7:active {
+  background-color: blue;
+}
 #input11 {
   background-color: #ff9f0a;
+}
+#input11:active {
+  background-color: blue;
 }
 
 #input15 {
   background-color: #ff9f0a;
 }
 
+#input15:active {
+  background-color: blue;
+}
+
 #input16 {
   width: 200px;
 }
-/* 
-
-
-
-
-
-
-
-
-#input18 {
-  background-color: #ff9f0a;
-} */

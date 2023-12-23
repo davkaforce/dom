@@ -48,14 +48,12 @@ let numberA = 0;
 let numberB = 0;
 let operation = "";
 
-// send elements using event listener :
-// receive as global variables
+let temp = 0; // for calculation using operations
+let fraction = 0; // for fraction numbers
+let fractionNum = 0;
 
-//inputs
-
-// click on numbers
-// creat
-
+// assigning numbers and operations to global variables
+let count = 0;
 for (let i = 0; i < myInputs.length; i++) {
   myInputs[i].addEventListener("click", function () {
     if (
@@ -65,21 +63,48 @@ for (let i = 0; i < myInputs.length; i++) {
       (11 > i && i > 7) ||
       (15 > i && i > 11)
     ) {
-      numberA = numberA * 10 + Number(myInputs[i].innerText);
+      numberA = Number(numberA + myInputs[i].innerText);
+
       console.log(numberA);
       console.log(typeof numberA);
       displayNumber.innerText = numberA;
+      if (count > 0) {
+        count = 0.5;
+        temp = calculate();
+      }
+
       //operations
     } else if (i == 3 || i == 7 || i == 11 || i == 15) {
+      if (typeof numberA === "string") {
+        // console.log(typeof numberA, numberA);
+        numberA = Number(numberA.slice(0, -1));
+      }
+      console.log(numberA);
       operation = myInputs[i].innerText;
       console.log(operation);
-      numberB = numberA;
-      numberA = 0;
+      if (count == 0) {
+        numberB = numberA;
+        numberA = 0;
+        count++;
+      } else if (count == 0.5) {
+        numberA = temp;
+        displayNumber.innerText = numberA;
+        numberB = numberA;
+        numberA = 0;
+      }
+      fraction = 0;
+      console.log(count);
+      //= or equals
     } else if (i == 18) {
       numberA = calculate();
       displayNumber.innerText = numberA;
+      // AC
     } else if (i == 0) {
       numberA = 0;
+      numberB = 0;
+      operation = "";
+      count = 0;
+      fraction = 0;
       displayNumber.innerText = numberA;
     } else if (i == 1) {
       numberA = numberA * -1;
@@ -87,7 +112,10 @@ for (let i = 0; i < myInputs.length; i++) {
     } else if (i == 2) {
       numberA = numberA / 100;
       displayNumber.innerText = numberA;
-    } else if (i == 17) {
+    } else if (i == 17 && fraction == 0) {
+      fraction = 1;
+      displayNumber.innerText = numberA + ".";
+      numberA = numberA + ".";
     }
   });
 }
@@ -98,9 +126,6 @@ console.log(numberA);
 const displayNumber = document.createElement("p");
 displayNumber.innerText = numberA;
 display.appendChild(displayNumber);
-
-// operation boxes + addevent listener
-// number boxes + addevent listener
 
 //calculating inputs/variables
 
