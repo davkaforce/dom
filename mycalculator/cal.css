@@ -57,7 +57,7 @@
   }
 }
 
-.input:active {
+.input:hover {
   background-color: black;
   color: white;
   animation: pulse 0.4s infinite alternate;

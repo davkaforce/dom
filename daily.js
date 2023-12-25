@@ -205,4 +205,46 @@ cardDiv.appendChild(img);
 
 root.appendChild(cardDiv);
 
-products.map((a)=>)
+// ES6 : object propoerty can
+
+const doSomething = () => {};
+
+const object = {
+  id: "John",
+  funct: doSomething,
+};
+
+// destructuring
+
+function doSomething2(person) {
+  const { age, name } = person;
+  console.log(age, name, "haha");
+}
+
+const me = {
+  age: 18,
+  name: "Ana",
+};
+
+doSomething2(me);
+
+// ternary operator
+
+const result = 10 > 5 ? "false" : "true";
+
+console.log(result);
+
+// spread operator
+
+function doAnything(...things) {
+  console.log("do me");
+  console.log(things);
+  const newArray = ["abc", "efd", ...things];
+  console.log(newArray);
+}
+
+doAnything(10, 20, "hello", "world");
+
+let myfirstArr = [1, 2, 3];
+let mysecondArr = [0.1, 10, ...myfirstArr];
+console.log(mysecondArr);
