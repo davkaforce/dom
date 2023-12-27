@@ -6,24 +6,41 @@
 }
 
 .container {
+  padding-top: 100px;
   max-width: 1200px;
   margin: auto;
-}
-.button {
-  width: 100px;
-  height: 50px;
-  border: 1px black solid;
+  display: flex;
 }
 
-.deleteB {
-  padding: 10px;
-  border: 1px black solid;
+.boards {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  background-color: aquamarine;
+  border-radius: 30px;
+  gap: 10px;
 }
 
-.editB {
-  padding: 10px;
-  border: 1px black solid;
+.cards {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
+
+.taskDiv {
+  background-color: bisque;
+  border-radius: 20px;
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+.editButton {
+  width: 40px;
+  height: 20px;
+}
+
 .modal {
   display: none;
   position: fixed; /* Stay in place */
@@ -43,4 +60,11 @@
   border: 1px solid #888;
   width: 300px;
   height: 200px; /* Could be more or less, depending on screen size */
+  display: flex;
+  flex-direction: column;
+}
+
+.inButton {
+  width: 50px;
+  height: 20px;
 }

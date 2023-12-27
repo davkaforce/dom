@@ -410,22 +410,27 @@ console.log(mysecondArr);
 //   },
 // ];
 
-// for (let i = 0; i < products.length; i++) {
-//   const div = document.createElement("p");
-//   div.innerText = products[i].name;
-//   root.appendChild(div);
-//   console.log(i);
-// }
+for (let i = 0; i < products.length; i++) {
+  const div = document.createElement("p");
+  div.innerText = products[i].name;
+  root.appendChild(div);
+  console.log(i);
+}
 
-// products.map((element) => {
-//   const para1 = document.createElement("p");
-//   para1.innerText = "name: " + element.name;
-//   root.appendChild(para1);
-//   const para2 = document.createElement("p");
-//   para2.innerText = "price: " + element.price;
-//   root.appendChild(para2);
-// });
+products.map((element) => {
+  const para1 = document.createElement("p");
+  para1.innerText = "name: " + element.name;
+  root.appendChild(para1);
+  const para2 = document.createElement("p");
+  para2.innerText = "price: " + element.price;
+  root.appendChild(para2);
+});
 
 // BOM - Browser object Model
 
 // window.open  - create new tab like chrome tab/window
+
+
+// setTimeout(()=>{}, 2000) {
+//   console.log("hello")
+// }

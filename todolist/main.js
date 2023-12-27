@@ -1,69 +1,114 @@
 const root = document.getElementById("root");
 
-const input = document.createElement("input");
-input.innerText = "Hello";
-input.setAttribute("type", "text");
+// creating 4 boards/divs and their childrens in HTML and CSS
 
-// root.appendChild(input);
+const board = document.createElement("div");
+board.setAttribute("class", "boards");
+root.appendChild(board);
+
+const paragraph = document.createElement("p");
+paragraph.innerText = `My tasks`;
+board.appendChild(paragraph);
 
 const button = document.createElement("button");
-button.setAttribute("type", "button");
-button.setAttribute("class", "button");
-button.innerText = "add new task";
+button.setAttribute("id", `button`);
+button.innerText = "Add task";
+board.appendChild(button);
+
+const cards = document.createElement("div");
+cards.setAttribute("class", "cards");
+board.appendChild(cards);
+
+// new popup window creation(HTML/CSS) for a new task
+
 const modal = document.createElement("div");
 modal.setAttribute("class", "modal");
+root.appendChild(modal);
+
 const modalContent = document.createElement("div");
 modalContent.setAttribute("class", "modalContent");
+modalContent.innerText = "modalContent";
 modal.appendChild(modalContent);
 
-modalContent.appendChild(input);
-root.appendChild(button);
-root.appendChild(modal);
-const cancel = document.createElement("button");
-modalContent.appendChild(cancel);
-cancel.style.width = "50px";
-cancel.style.height = "20px";
-cancel.innerHTML = "X";
-const addTask = document.createElement("button");
-modalContent.appendChild(addTask);
-addTask.style.width = "50px";
-addTask.style.height = "20px";
+const taskName = document.createElement("input");
+modalContent.appendChild(taskName);
 
-function addNewTask() {
-  const newTask = document.createElement("div");
-  newTask.style.width = "200px";
-  newTask.style.height = "100px";
-  newTask.style.border = "1px black solid";
-  newTask.innerText = "My Task " + input.value;
-  root.appendChild(newTask);
+const taskDesc = document.createElement("input");
+modalContent.appendChild(taskDesc);
 
-  // creating delete and edit button
+const inButton = document.createElement("button");
+inButton.setAttribute("class", "inButton");
+inButton.innerText = "Enter";
+modalContent.appendChild(inButton);
 
-  const deleteB = document.createElement("button");
-  deleteB.setAttribute("class", "deleteB");
-  deleteB.innerText = "X";
-
-  const editB = document.createElement("button");
-  editB.setAttribute("class", "editB");
-  editB.innerText = "edit";
-  editB.addEventListener("click", function () {});
-
-  newTask.appendChild(deleteB);
-  newTask.appendChild(editB);
-  deleteB.addEventListener("click", () => {});
-}
+// open "add new task" window
 
 button.addEventListener("click", () => {
   modal.style.display = "block";
-  console.log("aa");
+  taskName.value = "";
+  taskDesc.value = "";
 });
 
-cancel.addEventListener("click", () => {
+//my main task array
+let myArrayTask = [];
+
+// new task window button
+
+inButton.addEventListener("click", () => {
+  // assigning tasks to new object and array
+
+  cards.innerHTML = "";
+
+  let myObjectTask = { myTask: taskName.value, myDesc: taskDesc.value };
+
+  myArrayTask.push(myObjectTask);
+  console.log(myArrayTask.length);
+
+  myArrayTask.map((element) => {
+    const taskDiv = document.createElement("div");
+    taskDiv.setAttribute("class", "taskDiv");
+    taskDiv.setAttribute("id", `task${myArrayTask.indexOf(element)}`);
+    cards.appendChild(taskDiv);
+
+    const existingTaskName = document.createElement("p");
+    existingTaskName.innerText = "Task name: " + element.myTask;
+    const existingTaskDesc = document.createElement("p");
+    existingTaskDesc.innerText = "Task deskcription: " + element.myDesc;
+
+    taskDiv.appendChild(existingTaskName);
+    taskDiv.appendChild(existingTaskDesc);
+
+    const editButton = document.createElement("button");
+    editButton.setAttribute("class", "editButton");
+    editButton.setAttribute("id", `edit${myArrayTask.indexOf(element)}`);
+    editButton.innerText = "edit";
+    editButton.addEventListener("click", () => {
+      taskName.value = `${myArrayTask[myArrayTask.indexOf(element)].myTask}`;
+      taskDesc.value = `${myArrayTask[myArrayTask.indexOf(element)].myDesc}`;
+      modal.style.display = "block";
+    });
+    taskDiv.appendChild(editButton);
+
+    const deleteButton = document.createElement("button");
+    deleteButton.setAttribute("id", `delete${myArrayTask.indexOf(element)}`);
+    deleteButton.innerText = "X";
+    deleteButton.addEventListener("click", () => {
+      const taskDelete = document.getElementById(
+        `task${myArrayTask.indexOf(element)}`
+      );
+      cards.removeChild(taskDelete);
+      delete myArrayTask[myArrayTask.indexOf(element)];
+    });
+    taskDiv.appendChild(deleteButton);
+  });
+
   modal.style.display = "none";
 });
-addTask.addEventListener("click", addNewTask);
 
-// window.addEventListener("click", () => {
-//   modal.style.display = "none";
-//   console.log("aaaaaa");
-// });
+// close modal
+
+window.onclick = function (event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+};
