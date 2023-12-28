@@ -1,23 +1,50 @@
 const root = document.getElementById("root");
 
-// creating 4 boards/divs and their childrens in HTML and CSS
+// ----here real project starts----
 
-const board = document.createElement("div");
-board.setAttribute("class", "boards");
-root.appendChild(board);
+// creating actual 4 boards
 
-const paragraph = document.createElement("p");
-paragraph.innerText = `My tasks`;
-board.appendChild(paragraph);
+let currentBoardButton = 0;
 
-const button = document.createElement("button");
-button.setAttribute("id", `button`);
-button.innerText = "Add task";
-board.appendChild(button);
+for (let i = 0; i < 4; i++) {
+  const board = document.createElement("div");
+  board.setAttribute("class", "boards");
+  board.setAttribute("id", `board${i + 1}`);
+  root.appendChild(board);
 
-const cards = document.createElement("div");
-cards.setAttribute("class", "cards");
-board.appendChild(cards);
+  const paragraph = document.createElement("p");
+  paragraph.innerText = `My tasks`;
+  board.appendChild(paragraph);
+
+  const button = document.createElement("button");
+  button.setAttribute("id", `button`);
+  button.innerText = "Add task";
+  board.appendChild(button);
+
+  const cards = document.createElement("div");
+  cards.setAttribute("class", "cards");
+  cards.setAttribute("id", `cards${i + 1}`);
+  board.appendChild(cards);
+
+  button.addEventListener("click", () => {
+    modal.style.display = "block";
+    taskName.value = "";
+    taskDesc.value = "";
+    currentBoardButton = `${i + 1}`;
+  });
+}
+
+// global arrays and global html cards for each board
+
+let myArrayTask1 = [];
+let myArrayTask2 = [];
+let myArrayTask3 = [];
+let myArrayTask4 = [];
+
+let cards1 = document.getElementById("cards1");
+let cards2 = document.getElementById("cards2");
+let cards3 = document.getElementById("cards3");
+let cards4 = document.getElementById("cards4");
 
 // new popup window creation(HTML/CSS) for a new task
 
@@ -41,33 +68,20 @@ inButton.setAttribute("class", "inButton");
 inButton.innerText = "Enter";
 modalContent.appendChild(inButton);
 
-// open "add new task" window
-
-button.addEventListener("click", () => {
-  modal.style.display = "block";
-  taskName.value = "";
-  taskDesc.value = "";
-});
-
-//my main task array
-let myArrayTask = [];
-
 // new task window button
 
-inButton.addEventListener("click", () => {
-  // assigning tasks to new object and array
-
+function render(array, cards) {
   cards.innerHTML = "";
 
   let myObjectTask = { myTask: taskName.value, myDesc: taskDesc.value };
 
-  myArrayTask.push(myObjectTask);
-  console.log(myArrayTask.length);
+  array.push(myObjectTask);
 
-  myArrayTask.map((element) => {
+  array.map((element, index) => {
     const taskDiv = document.createElement("div");
     taskDiv.setAttribute("class", "taskDiv");
-    taskDiv.setAttribute("id", `task${myArrayTask.indexOf(element)}`);
+    taskDiv.setAttribute("id", `task${array.indexOf(element)}`);
+
     cards.appendChild(taskDiv);
 
     const existingTaskName = document.createElement("p");
@@ -80,32 +94,39 @@ inButton.addEventListener("click", () => {
 
     const editButton = document.createElement("button");
     editButton.setAttribute("class", "editButton");
-    editButton.setAttribute("id", `edit${myArrayTask.indexOf(element)}`);
+    editButton.setAttribute("id", `edit${array.indexOf(element)}`);
     editButton.innerText = "edit";
     editButton.addEventListener("click", () => {
-      taskName.value = `${myArrayTask[myArrayTask.indexOf(element)].myTask}`;
-      taskDesc.value = `${myArrayTask[myArrayTask.indexOf(element)].myDesc}`;
-      modal.style.display = "block";
+      taskName.value = element.myTask;
+      taskDesc.value = element.myDesc;
+      modal.disp;
     });
     taskDiv.appendChild(editButton);
 
     const deleteButton = document.createElement("button");
-    deleteButton.setAttribute("id", `delete${myArrayTask.indexOf(element)}`);
+    deleteButton.setAttribute("id", `delete${array.indexOf(element)}`);
     deleteButton.innerText = "X";
-    deleteButton.addEventListener("click", () => {
-      const taskDelete = document.getElementById(
-        `task${myArrayTask.indexOf(element)}`
-      );
-      cards.removeChild(taskDelete);
-      delete myArrayTask[myArrayTask.indexOf(element)];
-    });
+    deleteButton.addEventListener("click", () => {});
     taskDiv.appendChild(deleteButton);
   });
 
   modal.style.display = "none";
-});
+}
 
-// close modal
+inButton.addEventListener("click", () => {
+  if (currentBoardButton == 1) {
+    render(myArrayTask1, cards1);
+  }
+  if (currentBoardButton == 2) {
+    render(myArrayTask2, cards2);
+  }
+  if (currentBoardButton == 3) {
+    render(myArrayTask3, cards3);
+  }
+  if (currentBoardButton == 4) {
+    render(myArrayTask4, cards4);
+  }
+});
 
 window.onclick = function (event) {
   if (event.target == modal) {
