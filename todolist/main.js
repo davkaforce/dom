@@ -2,7 +2,7 @@ const root = document.getElementById("root");
 
 // ----here real project starts----
 
-// creating actual 4 boards
+// creating actual 4 boards and their children etc
 
 let currentBoardButton = 0;
 
@@ -105,7 +105,7 @@ function render(array, cards) {
 
     array.push(myObjectTask);
   }
-
+  // actual rendering
   array.map((element, index) => {
     console.log("array map works");
     const taskDiv = document.createElement("div");
@@ -132,9 +132,11 @@ function render(array, cards) {
       modalEdit.style.display = "block";
 
       inButtonEdit.onclick = () => {
+        console.log("edit button check");
         array[index].myTask = taskNameEdit.value;
         array[index].myDesc = taskDescEdit.value;
         currentBoardButton = 0;
+        console.log("edit button check2");
         // Re-render the tasks to reflect the changes
         render(array, cards);
         // Close the edit modal
@@ -148,8 +150,9 @@ function render(array, cards) {
     deleteButton.innerText = "X";
     deleteButton.addEventListener("click", () => {
       array.splice(index, 1);
-
-      cards.removeChild(taskDiv);
+      // cards.removeChild(taskDiv);
+      currentBoardButton = 0;
+      render(array, cards);
     });
     taskDiv.appendChild(deleteButton);
   });
