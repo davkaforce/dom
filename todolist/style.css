@@ -2,17 +2,18 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  margin: auto;
 }
 
 .container {
   padding-top: 100px;
   max-width: 1200px;
-  margin: auto;
   display: flex;
+  margin: auto;
 }
 
 .boards {
+  justify-content: flex-start;
+  align-items: center;
   display: flex;
   flex-direction: column;
   width: 300px;
@@ -68,4 +69,3 @@
   width: 50px;
   height: 20px;
 }
-

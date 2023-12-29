@@ -26,11 +26,12 @@ for (let i = 0; i < 4; i++) {
   cards.setAttribute("id", `cards${i + 1}`);
   board.appendChild(cards);
 
+  // add new task button for the board
   button.addEventListener("click", () => {
     modal.style.display = "block";
     taskName.value = "";
     taskDesc.value = "";
-    currentBoardButton = `${i + 1}`;
+    currentBoardButton = `${i + 1}`; // understanding which board exactly
   });
 }
 
@@ -46,7 +47,7 @@ let cards2 = document.getElementById("cards2");
 let cards3 = document.getElementById("cards3");
 let cards4 = document.getElementById("cards4");
 
-// new popup window creation(HTML/CSS) for a new task
+// new popup window creation(HTML/CSS) for new task
 
 const modal = document.createElement("div");
 modal.setAttribute("class", "modal");
@@ -68,19 +69,48 @@ inButton.setAttribute("class", "inButton");
 inButton.innerText = "Enter";
 modalContent.appendChild(inButton);
 
-// new task window button
+// "edit task" window  (excluding functionality)
+
+const modalEdit = document.createElement("div");
+modalEdit.setAttribute("class", "modal");
+root.appendChild(modalEdit);
+
+const modalContentEdit = document.createElement("div");
+modalContentEdit.setAttribute("class", "modalContent");
+modalContentEdit.innerText = "modalContentEdit";
+modalEdit.appendChild(modalContentEdit);
+
+const taskNameEdit = document.createElement("input");
+modalContentEdit.appendChild(taskNameEdit);
+
+const taskDescEdit = document.createElement("input");
+modalContentEdit.appendChild(taskDescEdit);
+
+const inButtonEdit = document.createElement("button");
+inButtonEdit.setAttribute("class", "inButton");
+inButtonEdit.innerText = "Save";
+modalContentEdit.appendChild(inButtonEdit);
+
+// declaring function for adding new task and render the board
 
 function render(array, cards) {
   cards.innerHTML = "";
+  console.log("render works");
+  // declaring temporary object var for task arrays
+  let myObjectTask;
 
-  let myObjectTask = { myTask: taskName.value, myDesc: taskDesc.value };
+  //understanding whether new task or edit task
+  if (currentBoardButton !== 0) {
+    myObjectTask = { myTask: taskName.value, myDesc: taskDesc.value };
 
-  array.push(myObjectTask);
+    array.push(myObjectTask);
+  }
 
   array.map((element, index) => {
+    console.log("array map works");
     const taskDiv = document.createElement("div");
     taskDiv.setAttribute("class", "taskDiv");
-    taskDiv.setAttribute("id", `task${array.indexOf(element)}`);
+    taskDiv.setAttribute("id", `task${index}`);
 
     cards.appendChild(taskDiv);
 
@@ -94,26 +124,44 @@ function render(array, cards) {
 
     const editButton = document.createElement("button");
     editButton.setAttribute("class", "editButton");
-    editButton.setAttribute("id", `edit${array.indexOf(element)}`);
+    editButton.setAttribute("id", `edit${index}`);
     editButton.innerText = "edit";
     editButton.addEventListener("click", () => {
-      taskName.value = element.myTask;
-      taskDesc.value = element.myDesc;
-      modal.disp;
+      taskNameEdit.value = element.myTask;
+      taskDescEdit.value = element.myDesc;
+      modalEdit.style.display = "block";
+
+      inButtonEdit.onclick = () => {
+        array[index].myTask = taskNameEdit.value;
+        array[index].myDesc = taskDescEdit.value;
+        currentBoardButton = 0;
+        // Re-render the tasks to reflect the changes
+        render(array, cards);
+        // Close the edit modal
+        modalEdit.style.display = "none";
+      };
     });
     taskDiv.appendChild(editButton);
 
     const deleteButton = document.createElement("button");
-    deleteButton.setAttribute("id", `delete${array.indexOf(element)}`);
+    deleteButton.setAttribute("id", `delete${index}`);
     deleteButton.innerText = "X";
-    deleteButton.addEventListener("click", () => {});
+    deleteButton.addEventListener("click", () => {
+      array.splice(index, 1);
+
+      cards.removeChild(taskDiv);
+    });
     taskDiv.appendChild(deleteButton);
   });
 
   modal.style.display = "none";
+  currentBoardButton = 0;
 }
 
+// add new task button in popup window
+
 inButton.addEventListener("click", () => {
+  console.log("check", currentBoardButton);
   if (currentBoardButton == 1) {
     render(myArrayTask1, cards1);
   }
@@ -128,8 +176,12 @@ inButton.addEventListener("click", () => {
   }
 });
 
+// close add/edit task window when clicked outside
+
 window.onclick = function (event) {
   if (event.target == modal) {
     modal.style.display = "none";
+  } else if (event.target == modalEdit) {
+    modalEdit.style.display = "none";
   }
 };
