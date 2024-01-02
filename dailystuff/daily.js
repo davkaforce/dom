@@ -430,7 +430,6 @@ products.map((element) => {
 
 // window.open  - create new tab like chrome tab/window
 
-
 // setTimeout(()=>{}, 2000) {
 //   console.log("hello")
 // }

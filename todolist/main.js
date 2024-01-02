@@ -100,6 +100,7 @@ modalContentEdit.appendChild(inButtonEdit);
 // declaring "render" function for adding new task and reset the tasks
 
 function render(array, cards) {
+  // empty the card
   cards.innerHTML = "";
   console.log("render works");
   // declaring temporary object var for task arrays
@@ -124,7 +125,7 @@ function render(array, cards) {
       taskDiv.classList.add("dragging");
       dragTaskIndex = index;
       dragTaskArray = AllArrays.indexOf(array);
-      // console.log(dragTaskArray, dragTaskIndex);
+      console.log(dragTaskArray, dragTaskIndex);
     });
     taskDiv.addEventListener("dragend", () => {
       taskDiv.classList.remove("dragging");
@@ -228,7 +229,6 @@ cardsContainers.forEach((container, index) => {
 
   container.addEventListener("drop", (e) => {
     e.preventDefault();
-    const draggable = document.querySelector(".dragging");
     const sourceIndex = dragTaskIndex;
     const sourceArray = AllArrays[dragTaskArray];
     const destinationArray = AllArrays[index];
@@ -238,9 +238,15 @@ cardsContainers.forEach((container, index) => {
     sourceArray.splice(sourceIndex, 1);
     destinationArray.push(taskToMove);
 
+    AllArrays[dragTaskArray] = sourceArray;
+    AllArrays[index] = destinationArray;
+
     // Re-render the tasks to reflect the changes
-    render(sourceArray, cardsContainers[dragTaskArray]);
-    render(destinationArray, cardsContainers[index]);
+
+    render(myArrayTask1, cards1);
+    render(myArrayTask2, cards2);
+    render(myArrayTask3, cards3);
+    render(myArrayTask4, cards4);
   });
 });
 
