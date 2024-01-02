@@ -38,13 +38,13 @@ let myArrayTask2 = [];
 let myArrayTask3 = [];
 let myArrayTask4 = [];
 
-let AllArrays = [myArrayTask1, myArrayTask2, myArrayTask3, myArrayTask4];
+console.log(typeof myArrayTask1);
 
 let myLocalStringArray1 = [];
 let myLocalStringArray2 = [];
 let myLocalStringArray3 = [];
 let myLocalStringArray4 = [];
-
+let AllArrays = [myArrayTask1, myArrayTask2, myArrayTask3, myArrayTask4];
 let cards1 = document.getElementById("cards1");
 let cards2 = document.getElementById("cards2");
 let cards3 = document.getElementById("cards3");
@@ -52,6 +52,7 @@ let cards4 = document.getElementById("cards4");
 
 let dragTaskArray;
 let dragTaskIndex;
+let currentArray;
 
 // "new task" popup window creation
 
@@ -124,8 +125,9 @@ function render(array, cards) {
     taskDiv.addEventListener("dragstart", () => {
       taskDiv.classList.add("dragging");
       dragTaskIndex = index;
+      console.log(AllArrays);
       dragTaskArray = AllArrays.indexOf(array);
-      console.log(dragTaskArray, dragTaskIndex);
+      console.log("check my temp indexes", dragTaskArray, dragTaskIndex);
     });
     taskDiv.addEventListener("dragend", () => {
       taskDiv.classList.remove("dragging");
@@ -206,7 +208,7 @@ inButton.addEventListener("click", () => {
     render(myArrayTask4, cards4);
   }
 });
-
+// render();
 // close add/edit task window when clicked outside
 
 window.onclick = function (event) {
@@ -216,39 +218,6 @@ window.onclick = function (event) {
     modalEdit.style.display = "none";
   }
 };
-
-// drag and drop section
-
-const cardsContainers = document.querySelectorAll(".cards");
-cardsContainers.forEach((container, index) => {
-  container.addEventListener("dragover", (e) => {
-    e.preventDefault();
-    const draggable = document.querySelector(".dragging");
-    container.appendChild(draggable);
-  });
-
-  container.addEventListener("drop", (e) => {
-    e.preventDefault();
-    const sourceIndex = dragTaskIndex;
-    const sourceArray = AllArrays[dragTaskArray];
-    const destinationArray = AllArrays[index];
-
-    // Move the task from the source array to the destination array
-    const taskToMove = sourceArray[sourceIndex];
-    sourceArray.splice(sourceIndex, 1);
-    destinationArray.push(taskToMove);
-
-    AllArrays[dragTaskArray] = sourceArray;
-    AllArrays[index] = destinationArray;
-
-    // Re-render the tasks to reflect the changes
-
-    render(myArrayTask1, cards1);
-    render(myArrayTask2, cards2);
-    render(myArrayTask3, cards3);
-    render(myArrayTask4, cards4);
-  });
-});
 
 // Render using localstorage
 
@@ -271,3 +240,62 @@ render(myArrayTask1, cards1);
 render(myArrayTask2, cards2);
 render(myArrayTask3, cards3);
 render(myArrayTask4, cards4);
+
+// drag and drop section
+
+const cardsContainers = document.querySelectorAll(".cards");
+cardsContainers.forEach((container, index) => {
+  container.addEventListener("dragover", (e) => {
+    e.preventDefault();
+    const draggable = document.querySelector(".dragging");
+    container.appendChild(draggable);
+  });
+
+  container.addEventListener("drop", (e) => {
+    e.preventDefault();
+    // const sourceIndex = dragTaskIndex;
+    const sourceArray = AllArrays[dragTaskArray];
+    console.log(dragTaskIndex);
+    console.log(dragTaskArray, "Array");
+    const destinationArray = AllArrays[index];
+
+    // Move the task from the source array to the destination array
+    const taskToMove = sourceArray[dragTaskIndex];
+    sourceArray.splice(dragTaskIndex, 1);
+    destinationArray.push(taskToMove);
+
+    console.log(sourceArray);
+    console.log(destinationArray);
+    AllArrays[dragTaskArray] = sourceArray;
+    AllArrays[index] = destinationArray;
+
+    // Re-render the tasks to reflect the changes
+
+    render(myArrayTask1, cards1);
+    render(myArrayTask2, cards2);
+    render(myArrayTask3, cards3);
+    render(myArrayTask4, cards4);
+  });
+});
+
+// const tasks = [
+//   { title: "To Do", id: "todo" },
+//   { title: "In progress", id: "inprogress" },
+
+//   { title: "Stuck", id: "stuck" },
+//   { title: "Done", id: "done" },
+// ];
+
+// // const allTask = [
+// //   {title:'', desc:'', id:'', status:'stuck'}
+// // ]
+
+// tasks.map((task)=>{
+
+// })
+
+// const addTask = ()=>{
+//   let cards = document.getElementsByClassName
+
+//  cards.appendChild(task)
+// }
