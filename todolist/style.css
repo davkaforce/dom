@@ -9,36 +9,53 @@
   padding-bottom: 500px;
   display: flex;
   justify-content: center;
-  background-image: url(./pexels-photo-2559941.jpeg);
-  background-repeat: no-repeat;
-  background-size: cover;
+  background-color: rgb(90, 224, 179);
   gap: 20px;
 }
 
 .boards {
+  padding-top: 20px;
   justify-content: flex-start;
   align-items: center;
   display: flex;
   flex-direction: column;
   width: 300px;
-  background-color: lightgreen;
+  background-color: rgb(174, 250, 225);
   opacity: 0.9;
   border-radius: 30px;
   gap: 10px;
+}
+
+.boardName {
+  color: black;
+  font-size: 20px;
+}
+
+.addButton {
+  width: 120px;
+  height: 30px;
+  background-color: green;
+  margin-bottom: 20px;
+}
+
+.addButton:hover {
+  background-color: blue;
+  color: white;
 }
 
 .cards {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  height: 400px;
+  min-height: 300px;
   width: 200px;
+  padding-bottom: 30px;
 }
 
 .taskDiv {
-  background-color: bisque;
-  border-radius: 20px;
-  width: 200px;
+  background-color: rgb(196, 189, 189);
+  border-radius: 10px;
+  width: 220px;
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
@@ -70,6 +87,13 @@
   height: 200px; /* Could be more or less, depending on screen size */
   display: flex;
   flex-direction: column;
+  text-align: center;
+}
+
+.textArea {
+  width: 250px;
+  height: 50px;
+  align-self: center;
 }
 
 .inButton {

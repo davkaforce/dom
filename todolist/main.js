@@ -11,12 +11,14 @@ for (let i = 0; i < 4; i++) {
 
   const paragraph = document.createElement("p");
   paragraph.setAttribute("id", `paragraph${i + 1}`);
+  paragraph.setAttribute("class", "boardName");
   paragraph.innerText = `My tasks`;
   board.appendChild(paragraph);
 
   const button = document.createElement("button");
   button.setAttribute("id", `button`);
-  button.innerText = "Add task";
+  button.setAttribute("class", "addButton");
+  button.innerText = "+  Add task";
   board.appendChild(button);
 
   const cards = document.querySelector(`#cards${i + 1}`);
@@ -30,6 +32,17 @@ for (let i = 0; i < 4; i++) {
     currentBoardButton = `${i + 1}`; // understanding which board exactly
   });
 }
+
+// naming my boards
+
+const boardParagraph1 = document.getElementById("paragraph1");
+boardParagraph1.innerText = "New To Do List";
+const boardParagraph2 = document.getElementById("paragraph2");
+boardParagraph2.innerText = "In progress";
+const boardParagraph3 = document.getElementById("paragraph3");
+boardParagraph3.innerText = "Need assistance or Stuck";
+const boardParagraph4 = document.getElementById("paragraph4");
+boardParagraph4.innerText = "Completed";
 
 // global arrays and global html cards for each board
 
@@ -67,7 +80,7 @@ root.appendChild(modal);
 
 const modalContent = document.createElement("div");
 modalContent.setAttribute("class", "modalContent");
-modalContent.innerText = "modalContent";
+modalContent.innerText = "Add New Task";
 modal.appendChild(modalContent);
 
 const taskName = document.createElement("input");
@@ -75,6 +88,17 @@ modalContent.appendChild(taskName);
 
 const taskDesc = document.createElement("input");
 modalContent.appendChild(taskDesc);
+
+const taskArea = document.createElement("textarea");
+taskArea.style.resize = "none";
+taskArea.setAttribute("class", "textArea");
+
+modalContent.appendChild(taskArea);
+
+const select = document.createElement("select");
+const option = document.createElement("option");
+select.appendChild(option);
+modalContent.appendChild(select);
 
 const inButton = document.createElement("button");
 inButton.setAttribute("class", "inButton");
