@@ -4,24 +4,46 @@
   padding: 0;
 }
 
-.container {
-  padding-top: 200px;
-  padding-bottom: 500px;
+.root {
   display: flex;
+  flex-direction: column;
+}
+
+.headSection {
+  text-align: center;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  font-style: oblique;
+}
+.headSection p {
+  font-size: 50px;
+}
+.mainSection {
+  display: flex;
+  gap: 20px;
+  align-items: center;
   justify-content: center;
-  background-color: rgb(90, 224, 179);
+}
+
+.container {
+  padding-top: 100px;
+  padding-bottom: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* background-color: rgb(90, 224, 179); */
+  background-image: url(./pexels-photo-2559941.jpeg);
+  background-size: cover;
   gap: 20px;
 }
 
 .boards {
   padding-top: 20px;
-  justify-content: flex-start;
   align-items: center;
   display: flex;
+  align-self: flex-start;
   flex-direction: column;
   width: 300px;
   background-color: rgb(174, 250, 225);
-  opacity: 0.9;
   border-radius: 30px;
   gap: 10px;
 }
@@ -34,7 +56,7 @@
 .addButton {
   width: 120px;
   height: 30px;
-  background-color: green;
+  background-color: rgb(111, 164, 185);
   margin-bottom: 20px;
 }
 
@@ -48,22 +70,41 @@
   flex-direction: column;
   gap: 10px;
   min-height: 300px;
-  width: 200px;
+  width: 250px;
   padding-bottom: 30px;
+  align-items: center;
 }
 
 .taskDiv {
   background-color: rgb(196, 189, 189);
   border-radius: 10px;
-  width: 220px;
+  align-items: flex-start;
   display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 5px;
+  gap: 10px;
+  width: 90%;
+  border: 1px solid rgba(0, 0, 0, 0.541);
 }
 
-.editButton {
-  width: 40px;
-  height: 20px;
+.taskTexts {
+  width: 250px;
+}
+
+.taskButtons {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.editButton:hover {
+  border-radius: 5px;
+  background-color: #818080;
+}
+
+.deleteButton:hover {
+  border-radius: 10px;
+  background-color: #818080;
 }
 
 .modal {
@@ -80,11 +121,10 @@
 }
 .modalContent {
   background-color: #fefefe;
-  margin: 15% auto; /* 15% from the top and centered */
+  margin: 10% auto; /* 15% from the top and centered */
   padding: 20px;
   border: 1px solid #888;
   width: 300px;
-  height: 200px; /* Could be more or less, depending on screen size */
   display: flex;
   flex-direction: column;
   text-align: center;
@@ -92,11 +132,13 @@
 
 .textArea {
   width: 250px;
-  height: 50px;
+  height: 100px;
   align-self: center;
+  flex-wrap: wrap;
 }
 
 .inButton {
-  width: 50px;
-  height: 20px;
+  margin-top: 30px;
+  height: 30px;
+  background-color: green;
 }

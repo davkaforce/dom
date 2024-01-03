@@ -83,26 +83,55 @@ modalContent.setAttribute("class", "modalContent");
 modalContent.innerText = "Add New Task";
 modal.appendChild(modalContent);
 
+const modalText1 = document.createElement("span");
+modalText1.innerText = "Task Name";
+modalText1.style.textAlign = "start";
+modalContent.appendChild(modalText1);
+
 const taskName = document.createElement("input");
 modalContent.appendChild(taskName);
+
+const modalText2 = document.createElement("span");
+modalText2.innerText = "Task Brief";
+modalText2.style.textAlign = "start";
+modalText2.style.paddingTop = "20px";
+modalContent.appendChild(modalText2);
 
 const taskDesc = document.createElement("input");
 modalContent.appendChild(taskDesc);
 
+const modalText3 = document.createElement("span");
+modalText3.innerText = "Task Description";
+modalText3.style.textAlign = "start";
+modalText3.style.paddingTop = "20px";
+modalContent.appendChild(modalText3);
+
 const taskArea = document.createElement("textarea");
 taskArea.style.resize = "none";
 taskArea.setAttribute("class", "textArea");
-
 modalContent.appendChild(taskArea);
 
+const modalText4 = document.createElement("span");
+modalText4.innerText = "Priority";
+modalText4.style.textAlign = "start";
+modalText4.style.paddingTop = "20px";
+modalContent.appendChild(modalText4);
 const select = document.createElement("select");
-const option = document.createElement("option");
-select.appendChild(option);
+const option1 = document.createElement("option");
+option1.innerText = "Medium";
+select.appendChild(option1);
+const option2 = document.createElement("option");
+option2.innerText = "High";
+select.appendChild(option2);
+const option3 = document.createElement("option");
+option3.innerText = "Low";
+select.appendChild(option3);
+
 modalContent.appendChild(select);
 
 const inButton = document.createElement("button");
 inButton.setAttribute("class", "inButton");
-inButton.innerText = "Enter";
+inButton.innerText = "Enter New Task";
 modalContent.appendChild(inButton);
 
 // "edit task" popup window creation
@@ -163,18 +192,44 @@ function render(array, cards) {
       taskDiv.classList.remove("dragging");
     });
 
+    const checkBox = document.createElement("input");
+    checkBox.setAttribute("type", "checkbox");
+    checkBox.style.width = "30px";
+    checkBox.style.height = "30px";
+    taskDiv.appendChild(checkBox);
+
     const existingTaskName = document.createElement("p");
-    existingTaskName.innerText = "Task name: " + element.myTask;
+    existingTaskName.innerText = element.myTask;
     const existingTaskDesc = document.createElement("p");
-    existingTaskDesc.innerText = "Task description: " + element.myDesc;
+    existingTaskDesc.innerText = element.myDesc;
 
-    taskDiv.appendChild(existingTaskName);
-    taskDiv.appendChild(existingTaskDesc);
+    const texts = document.createElement("div");
+    texts.setAttribute("class", "taskTexts");
+    taskDiv.appendChild(texts);
 
-    const editButton = document.createElement("button");
+    texts.appendChild(existingTaskName);
+    texts.appendChild(existingTaskDesc);
+
+    const buttons = document.createElement("div");
+    buttons.setAttribute("class", "taskButtons");
+    taskDiv.appendChild(buttons);
+
+    const deleteButton = document.createElement("div");
+    deleteButton.setAttribute("id", `delete${index}`);
+    deleteButton.setAttribute("class", "deleteButton");
+    deleteButton.innerHTML = `<i class="fa-regular fa-circle-xmark fa-lg"></i>`;
+    deleteButton.addEventListener("click", () => {
+      array.splice(index, 1);
+      // cards.removeChild(taskDiv);
+      currentBoardButton = 0;
+      render(array, cards);
+    });
+    buttons.appendChild(deleteButton);
+
+    const editButton = document.createElement("div");
     editButton.setAttribute("class", "editButton");
     editButton.setAttribute("id", `edit${index}`);
-    editButton.innerText = "edit";
+    editButton.innerHTML = `<i class="fa-regular fa-pen-to-square fa-lg"></i>`;
     editButton.addEventListener("click", () => {
       taskNameEdit.value = element.myTask;
       taskDescEdit.value = element.myDesc;
@@ -192,18 +247,7 @@ function render(array, cards) {
         modalEdit.style.display = "none";
       };
     });
-    taskDiv.appendChild(editButton);
-
-    const deleteButton = document.createElement("button");
-    deleteButton.setAttribute("id", `delete${index}`);
-    deleteButton.innerText = "X";
-    deleteButton.addEventListener("click", () => {
-      array.splice(index, 1);
-      // cards.removeChild(taskDiv);
-      currentBoardButton = 0;
-      render(array, cards);
-    });
-    taskDiv.appendChild(deleteButton);
+    buttons.appendChild(editButton);
   });
 
   modal.style.display = "none";
