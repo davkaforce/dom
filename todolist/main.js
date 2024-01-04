@@ -35,14 +35,23 @@ for (let i = 0; i < 4; i++) {
 
 // naming my boards
 
+let countTasks1 = 0;
+let countTasks2 = 0;
+let countTasks3 = 0;
+let countTasks4 = 0;
+
 const boardParagraph1 = document.getElementById("paragraph1");
-boardParagraph1.innerText = "New To Do List";
+boardParagraph1.style.fontWeight = "bold";
+boardParagraph1.innerText = "New To Do List " + countTasks1;
 const boardParagraph2 = document.getElementById("paragraph2");
-boardParagraph2.innerText = "In progress";
+boardParagraph2.style.fontWeight = "bold";
+boardParagraph2.innerText = "In progress " + countTasks2;
 const boardParagraph3 = document.getElementById("paragraph3");
-boardParagraph3.innerText = "Need assistance or Stuck";
+boardParagraph3.style.fontWeight = "bold";
+boardParagraph3.innerText = "Need assistance or Stuck " + countTasks3;
 const boardParagraph4 = document.getElementById("paragraph4");
-boardParagraph4.innerText = "Completed";
+boardParagraph4.style.fontWeight = "bold";
+boardParagraph4.innerText = "Completed " + countTasks4;
 
 // global arrays and global html cards for each board
 
@@ -196,6 +205,12 @@ function render(array, cards) {
     checkBox.setAttribute("type", "checkbox");
     checkBox.style.width = "30px";
     checkBox.style.height = "30px";
+    checkBox.addEventListener("click", () => {
+      array.splice(index, 1);
+      myArrayTask4.push(element);
+      render(array, cards);
+      render(myArrayTask4, cards4);
+    });
     taskDiv.appendChild(checkBox);
 
     const existingTaskName = document.createElement("p");
@@ -267,6 +282,24 @@ function render(array, cards) {
   localStorageOn = 1;
   let localStorageOnString = JSON.stringify(localStorageOn);
   localStorage.setItem("localStorageOnSave", localStorageOnString);
+
+  countTasks1 = myArrayTask1.length;
+  countTasks2 = myArrayTask2.length;
+  countTasks3 = myArrayTask3.length;
+  countTasks4 = myArrayTask4.length;
+
+  boardParagraph1.innerText = "New To Do List " + countTasks1;
+
+  boardParagraph2.innerText = "In progress " + countTasks2;
+
+  boardParagraph3.innerText = "Need assistance or Stuck " + countTasks3;
+
+  boardParagraph4.innerText = "Completed " + countTasks4;
+
+  const inputElements = cards4.querySelectorAll(`input[type="checkbox"]`);
+  inputElements.forEach((input) => {
+    input.checked = true;
+  });
 }
 
 // "add new task" button in popup window
